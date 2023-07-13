@@ -4,6 +4,50 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+document.querySelector('div').classList.add("hidden");
+
+const clickheart = document.querySelectorAll(".like-glyph");
+const changecolor = document.querySelectorAll('span');
+
+
+
+function changeheart(e){
+  const statusheart = e.target;
+//alert("you clicked shit");
+  mimicServerCall()
+    .then(function(response){
+      //alert(response); 
+     // document.querySelectorAll('span').classList.remove(".like.glyph");
+     statusheart.className = "activated-heart";
+      statusheart.innerText = FULL_HEART;
+     
+      //click  activated
+      document.querySelector('div').classList.remove("hidden");
+      document.querySelector("h2").innerHTML = "Success!";
+      //alert(response);
+      setTimeout(revert, 3000);
+    
+   
+       
+    })
+    .catch(function(error) {
+      //document.querySelector('div').classList.remove("hidden");
+      alert("Something went wrong!");
+    });
+
+function revert(){
+  document.querySelector('div').classList.add("hidden");
+  statusheart.className = "like-glyph";
+ statusheart.innerText = EMPTY_HEART;
+
+};
+
+}
+
+
+for (const heart of clickheart) {
+  heart.addEventListener("click", changeheart);
+}
 
 
 
